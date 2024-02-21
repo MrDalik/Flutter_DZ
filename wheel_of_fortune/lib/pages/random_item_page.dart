@@ -24,29 +24,16 @@ class _RandomItemPageState extends State<RandomItemPage> {
   }
 
   void _addItem(BuildContext context) {
-    var text = '';
-
     showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        child: Column(
-          children: [
-            TextField(
-              onChanged: (value) => text = value,
-            ),
-            ElevatedButton(
-              onPressed: () {
+        context: context,
+        builder: (context) => DialogItem(
+              text: '',
+              onPressed: (String text) {
                 setState(() {
                   names.add(text);
                 });
-                Navigator.pop(context);
               },
-              child: const Text('save'),
-            ),
-          ],
-        ),
-      ),
-    );
+            ));
   }
 
   void _delItem(int index) {
@@ -67,6 +54,20 @@ class _RandomItemPageState extends State<RandomItemPage> {
     });
   }
 
+  void _changeItem(text, index) {
+    showDialog(
+        context: context,
+        builder: (context) => DialogItem(
+          text:  names[index],
+          onPressed: (String text) {
+            setState(() {
+              names[index] = text;
+            });
+          },
+        ));
+  }
+
+
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
@@ -80,22 +81,24 @@ class _RandomItemPageState extends State<RandomItemPage> {
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  color: setnumbersdrawn.contains(index)
-                      ? randomindex == index
-                          ? Colors.red
-                          : Colors.blueGrey
-                      : Colors.green,
-                  child: ListTile(
-                    title: Text(
-                      names[index],
-                    ),
-                    trailing: CloseButton(
-                      onPressed: () => _delItem(index),
-                    ),
-                    selectedColor: Colors.black,
-                  ),
-                );
+                return GestureDetector(
+                    onTap: () => _changeItem(names[index],index),
+                    child: Container(
+                      color: setnumbersdrawn.contains(index)
+                          ? randomindex == index
+                              ? Colors.red
+                              : Colors.blueGrey
+                          : Colors.green,
+                      child: ListTile(
+                        title: Text(
+                          names[index],
+                        ),
+                        trailing: CloseButton(
+                          onPressed: () => _delItem(index),
+                        ),
+                        selectedColor: Colors.black,
+                      ),
+                    ));
               },
               itemCount: names.length),
         ),
@@ -117,5 +120,40 @@ class _RandomItemPageState extends State<RandomItemPage> {
         ),
       ]),
     );
+  }
+}
+
+class DialogItem extends StatelessWidget {
+  final void Function(String text) onPressed;
+   String text;
+
+   DialogItem({super.key, required this.onPressed, required this.text});
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        child: Container(
+      color: Colors.blue,
+      child: Center(
+        child: Column(
+          children: [
+            TextField(
+              controller: TextEditingController(text: text),
+              onChanged: (value) => text = value,
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                onPressed(text);
+                Navigator.pop(context);
+              },
+              child: const Text('add'),
+            )
+          ],
+        ),
+      ),
+    ));
   }
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_dz/widget_library/segment_painter.dart';
+import 'package:flutter_dz/widget/sector_painter.dart';
 
 class RandomItemPage extends StatefulWidget {
   final List<String> names_input;
@@ -89,14 +89,17 @@ class _RandomItemPageState extends State<RandomItemPage> {
     return Scaffold(
       body: Column(children: [
         Container(
-           color: Colors.cyanAccent,
-          width: 100,
-          height: 100,
+          color: Colors.orange,
+          width: 200,
+          height: 200,
           child: CustomPaint(
-            painter: SegmentPainter(
-              color: color,
+            painter: SectorPainter(
+              color: Colors.cyanAccent,
               angle: pi / 3,
-              radius: 50,
+              radius: 100,
+            ),
+          ),
+        ),
             ),
           ),
         ),

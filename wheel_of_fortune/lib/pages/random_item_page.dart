@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dz/widget_library/segment_painter.dart';
 
 class RandomItemPage extends StatefulWidget {
   final List<String> names_input;
@@ -16,11 +18,20 @@ class _RandomItemPageState extends State<RandomItemPage> {
   Set<int> setnumbersdrawn = {};
 
   List<String> names = [];
+  static const c1 = Color(0xFFFFFF00);
+  static const c2 = Color(0xFFD000FF);
+  var color = c1;
 
   @override
   void initState() {
     super.initState();
     names.addAll(widget.names_input);
+    // todo delete timer
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      setState(() {
+        color = color == c1 ? c2 : c1;
+      });
+    });
   }
 
   void _addItem(BuildContext context) {
@@ -58,15 +69,14 @@ class _RandomItemPageState extends State<RandomItemPage> {
     showDialog(
         context: context,
         builder: (context) => DialogItem(
-          text:  names[index],
-          onPressed: (String text) {
-            setState(() {
-              names[index] = text;
-            });
-          },
-        ));
+              text: names[index],
+              onPressed: (String text) {
+                setState(() {
+                  names[index] = text;
+                });
+              },
+            ));
   }
-
 
   void _restart() {
     setState(() {
@@ -78,11 +88,23 @@ class _RandomItemPageState extends State<RandomItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
+        Container(
+           color: Colors.cyanAccent,
+          width: 100,
+          height: 100,
+          child: CustomPaint(
+            painter: SegmentPainter(
+              color: color,
+              angle: pi / 3,
+              radius: 50,
+            ),
+          ),
+        ),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
-                    onTap: () => _changeItem(names[index],index),
+                    onTap: () => _changeItem(names[index], index),
                     child: Container(
                       color: setnumbersdrawn.contains(index)
                           ? randomindex == index
@@ -125,35 +147,41 @@ class _RandomItemPageState extends State<RandomItemPage> {
 
 class DialogItem extends StatelessWidget {
   final void Function(String text) onPressed;
-   String text;
+  String text;
 
-   DialogItem({super.key, required this.onPressed, required this.text});
+  DialogItem({super.key, required this.onPressed, required this.text});
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
-        child: Container(
-      color: Colors.blue,
-      child: Center(
-        child: Column(
-          children: [
-            TextField(
-              controller: TextEditingController(text: text),
-              onChanged: (value) => text = value,
+    return SizedBox(
+      height: 100,
+      width: 200,
+      child: Dialog(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  controller: TextEditingController(text: text),
+                  onChanged: (value) => text = value,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    onPressed(text);
+                    Navigator.pop(context);
+                  },
+                  child: const Text('add'),
+                )
+              ],
             ),
-            const SizedBox(
-              height: 8,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                onPressed(text);
-                Navigator.pop(context);
-              },
-              child: const Text('add'),
-            )
-          ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }

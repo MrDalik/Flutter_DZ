@@ -37,7 +37,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _addItem(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context) => DialogItem(
+        builder: (context) =>
+            DialogItem(
               text: '',
               onPressed: (String text) {
                 setState(() {
@@ -68,7 +69,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _changeItem(text, index) {
     showDialog(
         context: context,
-        builder: (context) => DialogItem(
+        builder: (context) =>
+            DialogItem(
               text: names[index],
               onPressed: (String text) {
                 setState(() {
@@ -100,9 +102,6 @@ class _RandomItemPageState extends State<RandomItemPage> {
             ),
           ),
         ),
-            ),
-          ),
-        ),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
@@ -111,8 +110,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
                     child: Container(
                       color: setnumbersdrawn.contains(index)
                           ? randomindex == index
-                              ? Colors.red
-                              : Colors.blueGrey
+                          ? Colors.red
+                          : Colors.blueGrey
                           : Colors.green,
                       child: ListTile(
                         title: Text(

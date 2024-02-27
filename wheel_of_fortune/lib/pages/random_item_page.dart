@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_dz/widget/circle.dart';
 import 'package:flutter_dz/widget/sector_painter.dart';
 
 class RandomItemPage extends StatefulWidget {
@@ -90,18 +91,7 @@ class _RandomItemPageState extends State<RandomItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Container(
-          color: Colors.orange,
-          width: 200,
-          height: 200,
-          child: CustomPaint(
-            painter: SectorPainter(
-              color: Colors.cyanAccent,
-              angle: pi / 3,
-              radius: 100,
-            ),
-          ),
-        ),
+        Circle(names: names,),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {

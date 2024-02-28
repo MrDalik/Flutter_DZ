@@ -22,6 +22,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
   static const c1 = Color(0xFFFFFF00);
   static const c2 = Color(0xFFD000FF);
   var color = c1;
+  double turns=0;
+  int early_random=1;
 
   @override
   void initState() {
@@ -61,6 +63,9 @@ class _RandomItemPageState extends State<RandomItemPage> {
       if (!setnumbersdrawn.contains(interrand)) {
         randomindex = interrand;
         setnumbersdrawn.add(randomindex!);
+        turns = (1/names.length)*(interrand-early_random).abs();
+        debugPrint('${interrand-early_random}');
+        early_random=interrand;
       } else {
         _random();
       }
@@ -84,6 +89,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
+      turns=0;
+      early_random=1;
     });
   }
 
@@ -91,7 +98,10 @@ class _RandomItemPageState extends State<RandomItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Circle(names: names,),
+          AnimatedRotation(
+          turns: turns,
+          duration: const Duration(seconds: 1),
+          child: Circle(names: names,),),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {

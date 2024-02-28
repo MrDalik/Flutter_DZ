@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dz/widget/sector_painter.dart';
+
 class Circle extends StatelessWidget {
-  final List<String>names;
+  final List<String> names;
+
   const Circle({super.key, required this.names});
 
   @override
@@ -18,24 +20,33 @@ class Circle extends StatelessWidget {
             children: [
               CustomPaint(
                 painter: SectorPainter(
-                  color: i % 2 == 1 ? Colors.cyanAccent : Colors.red,
+                  color: names.length % 2 == 1
+                      ? (i % 3 == 0
+                          ? (Colors.white)
+                          : (i % 3 == 1 ? (Colors.cyanAccent) : (Colors.red)))
+                      : (i % 2 == 1 ? Colors.cyanAccent : Colors.red),
                   angle: 2 * pi / names.length,
-                  radius: 100,
+                  radius: 140,
                 ),
               ),
-              Transform.rotate(angle: pi/2,child: Row(mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(names[i-1]),
-                  SizedBox(width: 100,)
-                ],
-              ),)
+              Transform.rotate(
+                angle: pi / 2,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(names[i - 1]),
+                    const SizedBox(
+                      width: 100,
+                    )
+                  ],
+                ),
+              )
             ],
           )));
     }
-    ;
     return SizedBox(
-      width: 400,
-      height: 400,
+      width: 300,
+      height: 300,
       child: Stack(
         alignment: AlignmentDirectional.center,
         children: circle,

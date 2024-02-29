@@ -14,7 +14,7 @@ class Circle extends StatelessWidget {
     List<Widget> circle = [];
     for (int i = 1; i <= names.length; i++) {
       circle.add(Transform.rotate(
-          angle: 2 * pi / names.length * i,
+          angle: 2 * pi / names.length * (i-1),
           child: Stack(
             alignment: AlignmentDirectional.center,
             children: [

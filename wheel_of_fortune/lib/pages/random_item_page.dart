@@ -23,7 +23,7 @@ class _RandomItemPageState extends State<RandomItemPage> {
   static const c2 = Color(0xFFD000FF);
   var color = c1;
   double turns=0;
-  int early_random=1;
+  int early_random=0;
 
   @override
   void initState() {
@@ -63,9 +63,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
       if (!setnumbersdrawn.contains(interrand)) {
         randomindex = interrand;
         setnumbersdrawn.add(randomindex!);
-        turns = (1/names.length)*(interrand-early_random).abs();
-        debugPrint('${interrand-early_random}');
-        early_random=interrand;
+        turns += -((1/names.length)*(randomindex!-early_random));
+        early_random=randomindex!;
       } else {
         _random();
       }
@@ -89,8 +88,6 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
-      turns=0;
-      early_random=1;
     });
   }
 

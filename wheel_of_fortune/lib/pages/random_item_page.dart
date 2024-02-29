@@ -22,8 +22,9 @@ class _RandomItemPageState extends State<RandomItemPage> {
   static const c1 = Color(0xFFFFFF00);
   static const c2 = Color(0xFFD000FF);
   var color = c1;
-  double turns=0;
-  int early_random=0;
+  double turns = 0;
+  int early_random = 0;
+  bool seconds_flag= false;
 
   @override
   void initState() {
@@ -40,11 +41,12 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _addItem(BuildContext context) {
     showDialog(
         context: context,
-        builder: (context) =>
-            DialogItem(
+        builder: (context) => DialogItem(
               text: '',
               onPressed: (String text) {
                 setState(() {
+                  turns = 0;
+                  early_random = 0;
                   names.add(text);
                 });
               },
@@ -54,17 +56,22 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _delItem(int index) {
     setState(() {
       names.removeAt(index);
+      turns = 0;
+      early_random = 0;
     });
   }
 
   void _random() {
     setState(() {
+      seconds_flag = false;
       int interrand = Random().nextInt(names.length);
       if (!setnumbersdrawn.contains(interrand)) {
         randomindex = interrand;
         setnumbersdrawn.add(randomindex!);
-        turns += -((1/names.length)*(randomindex!-early_random));
-        early_random=randomindex!;
+        turns += -((1 / names.length) * (randomindex! - early_random) +
+            Random().nextInt(3) +
+            1);
+        early_random = randomindex!;
       } else {
         _random();
       }
@@ -72,10 +79,10 @@ class _RandomItemPageState extends State<RandomItemPage> {
   }
 
   void _changeItem(text, index) {
+    seconds_flag = false;
     showDialog(
         context: context,
-        builder: (context) =>
-            DialogItem(
+        builder: (context) => DialogItem(
               text: names[index],
               onPressed: (String text) {
                 setState(() {
@@ -88,8 +95,9 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
-      turns=0;
-      early_random=0;
+      seconds_flag= true;
+      turns = 0;
+      early_random = 0;
     });
   }
 
@@ -97,10 +105,34 @@ class _RandomItemPageState extends State<RandomItemPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-          AnimatedRotation(
-          turns: turns,
-          duration: const Duration(seconds: 1),
-          child: Circle(names: names,),),
+        Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedRotation(
+              turns: turns,
+              curve: Curves.easeInOutCirc,
+              duration: Duration(seconds:seconds_flag?0:7),
+              child: Circle(
+                names: names,
+              ),
+            ),
+            CustomPaint(
+                painter: SectorPainter(
+                    color: Colors.black, radius: 10, angle: 2 * pi)),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Transform.rotate(
+                  angle: pi,
+                  child: CustomPaint(
+                      painter: SectorPainter(
+                          color: Colors.black, radius: 15, angle: pi / 2)),
+                ),
+                const SizedBox(height: 50,),
+              ],
+            )
+          ],
+        ),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
@@ -109,8 +141,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
                     child: Container(
                       color: setnumbersdrawn.contains(index)
                           ? randomindex == index
-                          ? Colors.red
-                          : Colors.blueGrey
+                              ? Colors.red
+                              : Colors.blueGrey
                           : Colors.green,
                       child: ListTile(
                         title: Text(

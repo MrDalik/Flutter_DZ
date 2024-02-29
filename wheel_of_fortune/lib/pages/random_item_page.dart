@@ -88,6 +88,8 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
+      turns=0;
+      early_random=0;
     });
   }
 

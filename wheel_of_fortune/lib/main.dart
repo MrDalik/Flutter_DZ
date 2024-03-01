@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RandomItemPage(names_input: ['Влад','Ваня','Петя','Сергей'],)
+      home: const RandomItemPage(names_input: ['Влад','Ваня','Петя','Сергей','111111111111111111111111111111111111111111111111111111'],)
     );
   }
 }

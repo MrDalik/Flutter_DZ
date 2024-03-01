@@ -24,7 +24,7 @@ class _RandomItemPageState extends State<RandomItemPage> {
   var color = c1;
   double turns = 0;
   int early_random = 0;
-  bool seconds_flag= false;
+  bool seconds_flag = false;
 
   @override
   void initState() {
@@ -95,7 +95,7 @@ class _RandomItemPageState extends State<RandomItemPage> {
   void _restart() {
     setState(() {
       setnumbersdrawn.clear();
-      seconds_flag= true;
+      seconds_flag = true;
       turns = 0;
       early_random = 0;
     });
@@ -111,9 +111,9 @@ class _RandomItemPageState extends State<RandomItemPage> {
             AnimatedRotation(
               turns: turns,
               curve: Curves.easeInOutCirc,
-              duration: Duration(seconds:seconds_flag?0:7),
+              duration: Duration(seconds: seconds_flag ? 0 : 7),
               child: Circle(
-                names: names,
+                names: names, size: 500,
               ),
             ),
             CustomPaint(
@@ -128,7 +128,9 @@ class _RandomItemPageState extends State<RandomItemPage> {
                       painter: SectorPainter(
                           color: Colors.black, radius: 15, angle: pi / 2)),
                 ),
-                const SizedBox(height: 50,),
+                const SizedBox(
+                  height: 50,
+                ),
               ],
             )
           ],
@@ -139,17 +141,29 @@ class _RandomItemPageState extends State<RandomItemPage> {
                 return GestureDetector(
                     onTap: () => _changeItem(names[index], index),
                     child: Container(
-                      color: setnumbersdrawn.contains(index)
-                          ? randomindex == index
-                              ? Colors.red
-                              : Colors.blueGrey
-                          : Colors.green,
+                      color: setnumbersdrawn.contains(index)?
+                              Colors.blueGrey : Colors.green,
                       child: ListTile(
                         title: Text(
                           names[index],
                         ),
-                        trailing: CloseButton(
-                          onPressed: () => _delItem(index),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ElevatedButton(
+                                onPressed: () => setState(() {
+                                      if (setnumbersdrawn.contains(index)) {
+                                        setnumbersdrawn.remove(index);
+                                      } else {
+                                        setnumbersdrawn.add(index);
+                                      }
+
+                                    }),
+                                child: const Icon(Icons.add_box_outlined)),
+                            CloseButton(
+                              onPressed: () => _delItem(index),
+                            ),
+                          ],
                         ),
                         selectedColor: Colors.black,
                       ),
@@ -218,3 +232,4 @@ class DialogItem extends StatelessWidget {
     );
   }
 }
+

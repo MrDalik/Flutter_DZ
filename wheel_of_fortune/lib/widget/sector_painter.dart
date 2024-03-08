@@ -1,7 +1,5 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-
 class SectorPainter extends CustomPainter {
   final Color color;
   final double radius;

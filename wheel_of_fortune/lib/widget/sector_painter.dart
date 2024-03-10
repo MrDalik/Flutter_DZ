@@ -14,14 +14,17 @@ class SectorPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..color = color
-      ..style = PaintingStyle.fill;
+      ..color = Colors.black
+      ..style = PaintingStyle.stroke;
 
     Offset circleCenter = Offset(size.width / 2, size.height / 2);
     Rect rectangle = Rect.fromCircle(center: circleCenter, radius: radius);
 
     bool useCenter = true;
 
+    canvas.drawArc(rectangle, -angle / 2 - pi / 2, angle, useCenter, Paint()
+      ..color = color
+      ..style = PaintingStyle.fill);
     canvas.drawArc(rectangle, -angle / 2 - pi / 2, angle, useCenter, paint);
   }
 
@@ -31,3 +34,5 @@ class SectorPainter extends CustomPainter {
       oldDelegate.radius != radius ||
       oldDelegate.angle != angle;
 }
+
+

@@ -1,0 +1,115 @@
+Index: .idea/libraries/Flutter_Plugins.xml
+===================================================================
+diff --git a/.idea/libraries/Flutter_Plugins.xml b/.idea/libraries/Flutter_Plugins.xml
+deleted file mode 100644
+--- a/.idea/libraries/Flutter_Plugins.xml	(revision a364f745308ca72b9d259173e43797209977f3c8)
++++ /dev/null	(revision a364f745308ca72b9d259173e43797209977f3c8)
+@@ -1,7 +0,0 @@
+-<component name="libraryTable">
+-  <library name="Flutter Plugins" type="FlutterPluginsLibraryType">
+-    <CLASSES />
+-    <JAVADOC />
+-    <SOURCES />
+-  </library>
+-</component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AndroidLayouts\">\r\n    <shared>\r\n      <config />\r\n    </shared>\r\n  </component>\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"NONE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"e179c095-9d9c-4a1d-84bb-39f1f82fbae0\" name=\"Changes\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"ClangdSettings\">\r\n    <option name=\"formatViaClangd\" value=\"false\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2cZsNDmFX2HpzXqPIHAMUCvUrbD\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ResourceManagerPrefKey.ResourceType\": \"MIPMAP\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"RunOnceActivity.cidr.known.project.marker\": \"true\",\r\n    \"cf.first.check.clang-format\": \"false\",\r\n    \"cidr.known.project.marker\": \"true\",\r\n    \"dart.analysis.tool.window.visible\": \"false\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"last_opened_file_path\": \"C:/Users/79250/StudioProjects/Flutter_DZ/wheel_of_fortune\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.17\",\r\n    \"project.structure.side.proportion\": \"0.2\",\r\n    \"settings.editor.selected.configurable\": \"AndroidSdkUpdater\",\r\n    \"show.migrate.to.gradle.popup\": \"false\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"main.dart\" type=\"FlutterRunConfigurationType\" factoryName=\"Flutter\">\r\n      <option name=\"filePath\" value=\"$PROJECT_DIR$/lib/main.dart\" />\r\n      <method v=\"2\" />\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"e179c095-9d9c-4a1d-84bb-39f1f82fbae0\" name=\"Changes\" comment=\"\" />\r\n      <created>1708330398776</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1708330398776</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision a364f745308ca72b9d259173e43797209977f3c8)
++++ b/.idea/workspace.xml	(date 1708623227162)
+@@ -30,24 +30,24 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "ResourceManagerPrefKey.ResourceType": "MIPMAP",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "RunOnceActivity.cidr.known.project.marker": "true",
+-    "cf.first.check.clang-format": "false",
+-    "cidr.known.project.marker": "true",
+-    "dart.analysis.tool.window.visible": "false",
+-    "git-widget-placeholder": "master",
+-    "last_opened_file_path": "C:/Users/79250/StudioProjects/Flutter_DZ/wheel_of_fortune",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.17",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
+-    "show.migrate.to.gradle.popup": "false"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;ResourceManagerPrefKey.ResourceType&quot;: &quot;MIPMAP&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
++    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
++    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
++    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;last_opened_file_path&quot;: &quot;C:/Users/79250/StudioProjects/Flutter_DZ/wheel_of_fortune&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
++    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
+       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
+Index: wheel_of_fortune/lib/pages/random_item_page.dart
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import 'dart:math';\r\n\r\nimport 'package:flutter/material.dart';\r\n\r\nclass RandomItemPage extends StatefulWidget {\r\n  final List<String> names_input;\r\n\r\n  const RandomItemPage({super.key, required this.names_input});\r\n\r\n  @override\r\n  State<RandomItemPage> createState() => _RandomItemPageState();\r\n}\r\n\r\nclass _RandomItemPageState extends State<RandomItemPage> {\r\n  int? randomindex;\r\n  Set<int> setnumbersdrawn = {};\r\n\r\n  List<String> names = [];\r\n\r\n  @override\r\n  void initState() {\r\n    super.initState();\r\n    names.addAll(widget.names_input);\r\n  }\r\n\r\n  void _addItem(BuildContext context) {\r\n    var text = '';\r\n\r\n    showDialog(\r\n      context: context,\r\n      builder: (context) => Dialog(\r\n        child: Column(\r\n          children: [\r\n            TextField(\r\n              onChanged: (value) => text = value,\r\n            ),\r\n            ElevatedButton(\r\n              onPressed: () {\r\n                setState(() {\r\n                  names.add(text);\r\n                });\r\n                Navigator.pop(context);\r\n              },\r\n              child: const Text('save'),\r\n            ),\r\n          ],\r\n        ),\r\n      ),\r\n    );\r\n  }\r\n\r\n  void _delItem(int index) {\r\n    setState(() {\r\n      names.removeAt(index);\r\n    });\r\n  }\r\n\r\n  void _random() {\r\n    setState(() {\r\n      int interrand = Random().nextInt(names.length);\r\n      if (!setnumbersdrawn.contains(interrand)) {\r\n        randomindex = interrand;\r\n        setnumbersdrawn.add(randomindex!);\r\n      } else {\r\n        _random();\r\n      }\r\n    });\r\n  }\r\n\r\n  void _restart() {\r\n    setState(() {\r\n      setnumbersdrawn.clear();\r\n    });\r\n  }\r\n\r\n  @override\r\n  Widget build(BuildContext context) {\r\n    return Scaffold(\r\n      body: Column(children: [\r\n        Expanded(\r\n          child: ListView.builder(\r\n              itemBuilder: (BuildContext context, int index) {\r\n                return Container(\r\n                  color: setnumbersdrawn.contains(index)\r\n                      ? randomindex == index\r\n                          ? Colors.red\r\n                          : Colors.blueGrey\r\n                      : Colors.green,\r\n                  child: ListTile(\r\n                    title: Text(\r\n                      names[index],\r\n                    ),\r\n                    trailing: CloseButton(\r\n                      onPressed: () => _delItem(index),\r\n                    ),\r\n                    selectedColor: Colors.black,\r\n                  ),\r\n                );\r\n              },\r\n              itemCount: names.length),\r\n        ),\r\n        Row(\r\n          children: [\r\n            FloatingActionButton(\r\n              onPressed: () => _addItem(context),\r\n              child: const Icon(Icons.add),\r\n            ),\r\n            FloatingActionButton(\r\n              onPressed: _random,\r\n              child: const Text('R'),\r\n            ),\r\n            FloatingActionButton(\r\n              onPressed: _restart,\r\n              child: const Icon(Icons.refresh),\r\n            ),\r\n          ],\r\n        ),\r\n      ]),\r\n    );\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/wheel_of_fortune/lib/pages/random_item_page.dart b/wheel_of_fortune/lib/pages/random_item_page.dart
+--- a/wheel_of_fortune/lib/pages/random_item_page.dart	(revision a364f745308ca72b9d259173e43797209977f3c8)
++++ b/wheel_of_fortune/lib/pages/random_item_page.dart	(date 1708448805764)
+@@ -13,7 +13,7 @@
+ 
+ class _RandomItemPageState extends State<RandomItemPage> {
+   int? randomindex;
+-  Set<int> setnumbersdrawn = {};
++  Set<int> setnumbersdrawn = [].toSet().toList();
+ 
+   List<String> names = [];
+ 
+@@ -56,6 +56,8 @@
+   }
+ 
+   void _random() {
++    List.generate(names.length, (index) => index).toSet().difference(setnumbersdrawn).toList();
++
+     setState(() {
+       int interrand = Random().nextInt(names.length);
+       if (!setnumbersdrawn.contains(interrand)) {
+Index: flutter_dz.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"JAVA_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\" inherit-compiler-output=\"true\">\r\n    <exclude-output />\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.dart_tool\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.pub\" />\r\n      <excludeFolder url=\"file://$MODULE_DIR$/build\" />\r\n    </content>\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n    <orderEntry type=\"library\" name=\"Dart SDK\" level=\"project\" />\r\n    <orderEntry type=\"library\" name=\"Dart Packages\" level=\"project\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/flutter_dz.iml b/flutter_dz.iml
+--- a/flutter_dz.iml	(revision a364f745308ca72b9d259173e43797209977f3c8)
++++ b/flutter_dz.iml	(date 1708623227150)
+@@ -6,6 +6,9 @@
+       <excludeFolder url="file://$MODULE_DIR$/.dart_tool" />
+       <excludeFolder url="file://$MODULE_DIR$/.pub" />
+       <excludeFolder url="file://$MODULE_DIR$/build" />
++      <excludeFolder url="file://$MODULE_DIR$/wheel_of_fortune/.dart_tool" />
++      <excludeFolder url="file://$MODULE_DIR$/wheel_of_fortune/.pub" />
++      <excludeFolder url="file://$MODULE_DIR$/wheel_of_fortune/build" />
+     </content>
+     <orderEntry type="sourceFolder" forTests="false" />
+     <orderEntry type="library" name="Dart SDK" level="project" />

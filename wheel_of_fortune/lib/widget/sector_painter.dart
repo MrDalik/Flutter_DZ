@@ -27,7 +27,7 @@ class SectorPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant SectorPainter oldDelegate) =>
-      oldDelegate.color != color &&
-      oldDelegate.radius != radius &&
+      oldDelegate.color != color ||
+      oldDelegate.radius != radius ||
       oldDelegate.angle != angle;
 }

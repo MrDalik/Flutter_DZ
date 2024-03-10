@@ -101,6 +101,8 @@ class _RandomItemPageState extends State<RandomItemPage>
     setState(() {
       setnumbersdrawn.clear();
       turns = 0;
+      lastRotationValue=0;
+      lastIndex=0;
     });
   }
 
@@ -115,7 +117,7 @@ class _RandomItemPageState extends State<RandomItemPage>
               angle: lastRotationValue + _animationController.value * turns,
               child: Circle(
                 names: names,
-                size: 500,
+                size: 500, setindex: Set.of(setnumbersdrawn),
               ),
             ),
             CustomPaint(

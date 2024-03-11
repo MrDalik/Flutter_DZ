@@ -7,6 +7,7 @@ void main() {
   runApp(const MyApp());
 }
 
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialPageRoute(
           builder: (context) => RandomItemPage(
-            names_input: uri?.queryParametersAll['name'] ?? [],
+            names_input: uri?.queryParametersAll['name'] ?? ['Влад','Ваня','Петя'],
           ),
         );
       },

@@ -28,6 +28,7 @@ class SectorPainter extends CustomPainter {
     canvas.drawArc(rectangle, -angle / 2 - pi / 2, angle, useCenter, paint);
   }
 
+
   @override
   bool shouldRepaint(covariant SectorPainter oldDelegate) =>
       oldDelegate.color != color ||

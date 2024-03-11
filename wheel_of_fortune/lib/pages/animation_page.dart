@@ -65,12 +65,6 @@ class _AnimationPageState extends State<AnimationPage>
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () => _animationController
-              ..reset()
-              ..forward(),
-            child: const Text('repeat'),
-          ),
         ],
       );
 

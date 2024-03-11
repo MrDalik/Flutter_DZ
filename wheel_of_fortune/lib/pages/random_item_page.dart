@@ -70,8 +70,20 @@ class _RandomItemPageState extends State<RandomItemPage>
   }
 
   void _delItem(int index) {
+    Set<int> _localSet={};
     setState(() {
       names.removeAt(index);
+      setnumbersdrawn.remove(index);
+      for(final setIndex in setnumbersdrawn){
+        if (setIndex>index){
+          _localSet.add(setIndex-1);
+        }
+        else{
+          _localSet.add(setIndex);
+        }
+      }
+      setnumbersdrawn=_localSet;
+      debugPrint('set $setnumbersdrawn arr $names');
       _calculateDiffAngle(names.length + 1, names.length);
     });
   }
@@ -79,7 +91,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   void _random() {
     final index = _getNextIndex();
     lastRotationValue += turns;
-    turns = 2 * pi / names.length * (_currentIndex - index);
+    turns = 2 * pi / names.length * (_currentIndex - index)+pi*4;
     _previousIndex = _currentIndex;
     _currentIndex = index;
     _animationController
@@ -178,7 +190,7 @@ class _RandomItemPageState extends State<RandomItemPage>
                                     ),
                                 child: const Icon(Icons.add_box_outlined)),
                             CloseButton(
-                              onPressed: () => _delItem(index),
+                              onPressed: names.length==1?  null :() =>_delItem(index),
                             ),
                           ],
                         ),

@@ -25,7 +25,8 @@ class _RandomItemPageState extends State<RandomItemPage>
   );
   double turns = 0;
   double lastRotationValue = 0;
-  int lastIndex = 0;
+  int _currentIndex = 0;
+  int _previousIndex = 0;
 
   @override
   void initState() {
@@ -53,25 +54,34 @@ class _RandomItemPageState extends State<RandomItemPage>
               text: '',
               onPressed: (String text) {
                 setState(() {
-                  turns = 0;
                   names.add(text);
+                  _calculateDiffAngle(names.length - 1, names.length);
                 });
               },
             ));
   }
 
+  void _calculateDiffAngle(int oldSegmentCount, int newSegmentCount) {
+    final oldAngle = 2 * pi / oldSegmentCount;
+    final newAngle = 2 * pi / newSegmentCount;
+    final deltaAngle = oldAngle - newAngle;
+    lastRotationValue += deltaAngle * _previousIndex;
+    turns = -newAngle * (_currentIndex - _previousIndex);
+  }
+
   void _delItem(int index) {
     setState(() {
       names.removeAt(index);
-      turns = 0;
+      _calculateDiffAngle(names.length + 1, names.length);
     });
   }
 
   void _random() {
     final index = _getNextIndex();
     lastRotationValue += turns;
-    turns = 2 * pi / names.length * (lastIndex - index);
-    lastIndex = index;
+    turns = 2 * pi / names.length * (_currentIndex - index);
+    _previousIndex = _currentIndex;
+    _currentIndex = index;
     _animationController
       ..reset()
       ..forward();
@@ -101,8 +111,8 @@ class _RandomItemPageState extends State<RandomItemPage>
     setState(() {
       setnumbersdrawn.clear();
       turns = 0;
-      lastRotationValue=0;
-      lastIndex=0;
+      lastRotationValue = 0;
+      _currentIndex = 0;
     });
   }
 
@@ -117,7 +127,8 @@ class _RandomItemPageState extends State<RandomItemPage>
               angle: lastRotationValue + _animationController.value * turns,
               child: Circle(
                 names: names,
-                size: 500, setindex: Set.of(setnumbersdrawn),
+                size: 500,
+                setindex: setnumbersdrawn,
               ),
             ),
             CustomPaint(
@@ -145,8 +156,9 @@ class _RandomItemPageState extends State<RandomItemPage>
                 return GestureDetector(
                     onTap: () => _changeItem(names[index], index),
                     child: Container(
-                      color: setnumbersdrawn.contains(index)?
-                              Colors.blueGrey : Colors.green,
+                      color: setnumbersdrawn.contains(index)
+                          ? Colors.blueGrey
+                          : Colors.green,
                       child: ListTile(
                         title: Text(
                           names[index],
@@ -201,13 +213,13 @@ class _RandomItemPageState extends State<RandomItemPage>
   }
 
   void _onAnimationStatusUpdate(AnimationStatus status) {
-    if (status == AnimationStatus.completed ) {
+    if (status == AnimationStatus.completed) {
       setState(() {
-        setnumbersdrawn.add(lastIndex);
+        setnumbersdrawn.add(_currentIndex);
       });
     }
   }
-  }
+}
 
 class DialogItem extends StatelessWidget {
   final void Function(String text) onPressed;
@@ -249,4 +261,3 @@ class DialogItem extends StatelessWidget {
     );
   }
 }
-

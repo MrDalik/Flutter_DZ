@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
 
         return MaterialPageRoute(
           builder: (context) => RandomItemPage(
-            names_input: uri?.queryParametersAll['name'] ?? ['Влад','Ваня','Петя'],
+            namesInput: uri?.queryParametersAll['name'] ?? ['Влад','Ваня','Петя'],
           ),
         );
       },

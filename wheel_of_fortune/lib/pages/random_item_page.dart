@@ -5,9 +5,9 @@ import 'package:flutter_dz/widget/circle.dart';
 import 'package:flutter_dz/widget/sector_painter.dart';
 
 class RandomItemPage extends StatefulWidget {
-  final List<String> names_input;
+  final List<String> namesInput;
 
-  const RandomItemPage({super.key, required this.names_input});
+  const RandomItemPage({super.key, required this.namesInput});
 
   @override
   State<RandomItemPage> createState() => _RandomItemPageState();
@@ -15,8 +15,8 @@ class RandomItemPage extends StatefulWidget {
 
 class _RandomItemPageState extends State<RandomItemPage>
     with SingleTickerProviderStateMixin {
-  int? randomindex;
-  Set<int> setnumbersdrawn = {};
+  int? randomIndex;
+  Set<int> setNumbersDrawn = {};
 
   List<String> names = [];
   late final AnimationController _animationController = AnimationController(
@@ -27,11 +27,11 @@ class _RandomItemPageState extends State<RandomItemPage>
   double lastRotationValue = 0;
   int _currentIndex = 0;
   int _previousIndex = 0;
-
+  double sizeTransformList = 500;
   @override
   void initState() {
     super.initState();
-    names.addAll(widget.names_input);
+    names.addAll(widget.namesInput);
 
     // нужно, чтобы вызвать setState
     _animationController.addListener(_onAnimationUpdate);
@@ -70,20 +70,20 @@ class _RandomItemPageState extends State<RandomItemPage>
   }
 
   void _delItem(int index) {
-    Set<int> _localSet={};
+    Set<int> localSet={};
     setState(() {
       names.removeAt(index);
-      setnumbersdrawn.remove(index);
-      for(final setIndex in setnumbersdrawn){
+      setNumbersDrawn.remove(index);
+      for(final setIndex in setNumbersDrawn){
         if (setIndex>index){
-          _localSet.add(setIndex-1);
+          localSet.add(setIndex-1);
         }
         else{
-          _localSet.add(setIndex);
+          localSet.add(setIndex);
         }
       }
-      setnumbersdrawn=_localSet;
-      debugPrint('set $setnumbersdrawn arr $names');
+      setNumbersDrawn=localSet;
+      debugPrint('set $setNumbersDrawn arr $names');
       _calculateDiffAngle(names.length + 1, names.length);
     });
   }
@@ -102,7 +102,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   int _getNextIndex() {
     final unusedIndices = List.generate(names.length, (index) => index)
         .toSet()
-        .difference(setnumbersdrawn);
+        .difference(setNumbersDrawn);
     return unusedIndices.elementAt(Random().nextInt(unusedIndices.length));
   }
 
@@ -121,7 +121,7 @@ class _RandomItemPageState extends State<RandomItemPage>
 
   void _restart() {
     setState(() {
-      setnumbersdrawn.clear();
+      setNumbersDrawn.clear();
       turns = 0;
       lastRotationValue = 0;
       _currentIndex = 0;
@@ -132,43 +132,54 @@ class _RandomItemPageState extends State<RandomItemPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(children: [
-        Stack(
-          alignment: Alignment.center,
-          children: [
-            Transform.rotate(
-              angle: lastRotationValue + _animationController.value * turns,
-              child: Circle(
-                names: names,
-                size: 500,
-                setindex: setnumbersdrawn,
+        ConstrainedBox(
+          constraints:  BoxConstraints(maxHeight: sizeTransformList,minHeight: sizeTransformList,maxWidth: sizeTransformList,minWidth: sizeTransformList),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Transform.rotate(
+                angle: lastRotationValue + _animationController.value * turns,
+                child: Circle(
+                  names: names,
+                  size: sizeTransformList,
+                  setindex: setNumbersDrawn,
+                ),
               ),
-            ),
-            CustomPaint(
-                painter: SectorPainter(
-                    color: Colors.black, radius: 10, angle: 2 * pi)),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Transform.rotate(
-                  angle: pi,
-                  child: CustomPaint(
-                      painter: SectorPainter(
-                          color: Colors.black, radius: 15, angle: pi / 2)),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-              ],
-            )
-          ],
+              CustomPaint(
+                  painter: SectorPainter(
+                      color: Colors.black, radius: sizeTransformList/50, angle: 2 * pi)),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Transform.rotate(
+                    angle: pi,
+                    child: CustomPaint(
+                        painter: SectorPainter(
+                            color: Colors.black, radius: sizeTransformList/33, angle: pi / 2)),
+                  ),
+                  SizedBox(
+                    height: sizeTransformList/10,
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
+        const SizedBox(height: 5,),
+        GestureDetector(
+            onPanUpdate: (details) {setState(() {
+              sizeTransformList+=details.delta.dy;
+            });
+        debugPrint('details.globalPosition: ${details}');
+        },
+    child: Container(height: 6,color: Colors.black,)),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                     onTap: () => _changeItem(names[index], index),
                     child: Container(
-                      color: setnumbersdrawn.contains(index)
+                      color: setNumbersDrawn.contains(index)
                           ? Colors.blueGrey
                           : Colors.green,
                       child: ListTile(
@@ -181,10 +192,10 @@ class _RandomItemPageState extends State<RandomItemPage>
                             ElevatedButton(
                                 onPressed: () => setState(
                                       () {
-                                        if (setnumbersdrawn.contains(index)) {
-                                          setnumbersdrawn.remove(index);
+                                        if (setNumbersDrawn.contains(index)) {
+                                          setNumbersDrawn.remove(index);
                                         } else {
-                                          setnumbersdrawn.add(index);
+                                          setNumbersDrawn.add(index);
                                         }
                                       },
                                     ),
@@ -227,7 +238,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   void _onAnimationStatusUpdate(AnimationStatus status) {
     if (status == AnimationStatus.completed) {
       setState(() {
-        setnumbersdrawn.add(_currentIndex);
+        setNumbersDrawn.add(_currentIndex);
       });
     }
   }

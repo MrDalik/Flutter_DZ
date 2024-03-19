@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dz/widget/circle.dart';
 import 'package:flutter_dz/widget/sector_painter.dart';
 
+const _minCircleDiameter = 200.0;
+const _maxCircleDiameter = 600.0;
+
 class RandomItemPage extends StatefulWidget {
   final List<String> namesInput;
 
@@ -27,7 +30,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   double lastRotationValue = 0;
   int _currentIndex = 0;
   int _previousIndex = 0;
-  double sizeTransformList = 500;
+  double sizeTransformList = _maxCircleDiameter;
 
   @override
   void initState() {
@@ -131,118 +134,141 @@ class _RandomItemPageState extends State<RandomItemPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-              maxHeight: sizeTransformList,
-              minHeight: sizeTransformList,
-              maxWidth: sizeTransformList,
-              minWidth: sizeTransformList),
-          child: Stack(
-            alignment: Alignment.center,
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            height: sizeTransformList,
+            padding: const EdgeInsets.all(20),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final circleDiameter =
+                    min(constraints.maxHeight, constraints.maxWidth);
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Transform.rotate(
+                      angle: lastRotationValue +
+                          _animationController.value * turns,
+                      child: Circle(
+                        names: names,
+                        size: circleDiameter,
+                        setindex: setNumbersDrawn,
+                      ),
+                    ),
+                    CustomPaint(
+                      painter: SectorPainter(
+                        color: Colors.black,
+                        radius: circleDiameter / 50,
+                        angle: 2 * pi,
+                      ),
+                    ),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Transform.rotate(
+                          angle: pi,
+                          child: CustomPaint(
+                            painter: SectorPainter(
+                              color: Colors.black,
+                              radius: circleDiameter / 33,
+                              angle: pi / 2,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: circleDiameter / 10,
+                        ),
+                      ],
+                    )
+                  ],
+                );
+              },
+            ),
+          ),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+                onPanUpdate: (details) {
+                  setState(() {
+                    sizeTransformList = (sizeTransformList + details.delta.dy)
+                        .clamp(_minCircleDiameter, _maxCircleDiameter);
+                  });
+                },
+                child: Container(
+                  height: 10,
+                  color: Colors.black,
+                )),
+          ),
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Transform.rotate(
-                angle: lastRotationValue + _animationController.value * turns,
-                child: Circle(
-                  names: names,
-                  size: sizeTransformList,
-                  setindex: setNumbersDrawn,
-                ),
+              FloatingActionButton(
+                onPressed: _random,
+                child: const Icon(Icons.play_arrow),
               ),
-              CustomPaint(
-                  painter: SectorPainter(
-                      color: Colors.black,
-                      radius: sizeTransformList / 50,
-                      angle: 2 * pi)),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Transform.rotate(
-                    angle: pi,
-                    child: CustomPaint(
-                        painter: SectorPainter(
-                            color: Colors.black,
-                            radius: sizeTransformList / 33,
-                            angle: pi / 2)),
-                  ),
-                  SizedBox(
-                    height: sizeTransformList / 10,
-                  ),
-                ],
-              )
+              const SizedBox(width: 10),
+              FloatingActionButton(
+                onPressed: () => _addItem(context),
+                child: const Icon(Icons.add),
+              ),
+              const SizedBox(width: 10),
+              FloatingActionButton(
+                onPressed: _restart,
+                child: const Icon(Icons.refresh),
+              ),
             ],
           ),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        GestureDetector(
-            onPanUpdate: (details) {
-              setState(() {
-                sizeTransformList += details.delta.dy;
-              });
-            },
-            child: Container(
-              height: 12,
-              color: Colors.black,
-            )),
-        Expanded(
-          child: ListView.builder(
+          const SizedBox(height: 20),
+          Flexible(
+            child: ListView.builder(
+              itemCount: names.length,
               itemBuilder: (BuildContext context, int index) {
+                final isDrawn = setNumbersDrawn.contains(index);
                 return GestureDetector(
-                    onTap: () => _changeItem(names[index], index),
-                    child: Container(
-                      color: setNumbersDrawn.contains(index)
-                          ? Colors.blueGrey
-                          : Colors.green,
-                      child: ListTile(
-                        title: Text(
-                          names[index],
+                  onTap: () => _changeItem(names[index], index),
+                  child: Container(
+                    color: isDrawn
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).colorScheme.primaryContainer,
+                    child: ListTile(
+                      title: Text(
+                        names[index],
+                        style: TextStyle(
+                          color: isDrawn ? Colors.white : Colors.black,
                         ),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ElevatedButton(
-                                onPressed: () => setState(
-                                      () {
-                                        if (setNumbersDrawn.contains(index)) {
-                                          setNumbersDrawn.remove(index);
-                                        } else {
-                                          setNumbersDrawn.add(index);
-                                        }
-                                      },
-                                    ),
-                                child: const Icon(Icons.add_box_outlined)),
-                            CloseButton(
-                              onPressed: names.length == 1
-                                  ? null
-                                  : () => _delItem(index),
-                            ),
-                          ],
-                        ),
-                        selectedColor: Colors.black,
                       ),
-                    ));
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => setState(
+                                    () {
+                                      if (setNumbersDrawn.contains(index)) {
+                                        setNumbersDrawn.remove(index);
+                                      } else {
+                                        setNumbersDrawn.add(index);
+                                      }
+                                    },
+                                  ),
+                              child: const Icon(Icons.add_box_outlined)),
+                          CloseButton(
+                            onPressed: names.length == 1
+                                ? null
+                                : () => _delItem(index),
+                          ),
+                        ],
+                      ),
+                      selectedColor: Colors.black,
+                    ),
+                  ),
+                );
               },
-              itemCount: names.length),
-        ),
-        Row(
-          children: [
-            FloatingActionButton(
-              onPressed: () => _addItem(context),
-              child: const Icon(Icons.add),
             ),
-            FloatingActionButton(
-              onPressed: _random,
-              child: const Text('R'),
-            ),
-            FloatingActionButton(
-              onPressed: _restart,
-              child: const Icon(Icons.refresh),
-            ),
-          ],
-        ),
-      ]),
+          ),
+        ],
+      ),
     );
   }
 

@@ -25,7 +25,9 @@ class Circle extends StatelessWidget {
             children: [
               CustomPaint(
                 painter: SectorPainter(
-                  color: (setindex.contains(i)) ? Colors.blueGrey : Colors.cyan,
+                  color: (setindex.contains(i))
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).colorScheme.primaryContainer,
                   angle: 2 * pi / names.length,
                   radius: size / 2,
                 ),
@@ -44,6 +46,9 @@ class Circle extends StatelessWidget {
                             fontSize: size / 30,
                             fontWeight: FontWeight.w600,
                             overflow: TextOverflow.ellipsis,
+                            color: setindex.contains(i)
+                                ? Colors.white
+                                : Colors.black,
                           ),
                           maxLines: 1,
                         )),

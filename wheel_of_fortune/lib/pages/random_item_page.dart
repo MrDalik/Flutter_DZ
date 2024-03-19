@@ -28,6 +28,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   int _currentIndex = 0;
   int _previousIndex = 0;
   double sizeTransformList = 500;
+
   @override
   void initState() {
     super.initState();
@@ -70,19 +71,18 @@ class _RandomItemPageState extends State<RandomItemPage>
   }
 
   void _delItem(int index) {
-    Set<int> localSet={};
+    Set<int> localSet = {};
     setState(() {
       names.removeAt(index);
       setNumbersDrawn.remove(index);
-      for(final setIndex in setNumbersDrawn){
-        if (setIndex>index){
-          localSet.add(setIndex-1);
-        }
-        else{
+      for (final setIndex in setNumbersDrawn) {
+        if (setIndex > index) {
+          localSet.add(setIndex - 1);
+        } else {
           localSet.add(setIndex);
         }
       }
-      setNumbersDrawn=localSet;
+      setNumbersDrawn = localSet;
       debugPrint('set $setNumbersDrawn arr $names');
       _calculateDiffAngle(names.length + 1, names.length);
     });
@@ -91,7 +91,7 @@ class _RandomItemPageState extends State<RandomItemPage>
   void _random() {
     final index = _getNextIndex();
     lastRotationValue += turns;
-    turns = 2 * pi / names.length * (_currentIndex - index)+pi*4;
+    turns = 2 * pi / names.length * (_currentIndex - index) + pi * 4;
     _previousIndex = _currentIndex;
     _currentIndex = index;
     _animationController
@@ -133,7 +133,11 @@ class _RandomItemPageState extends State<RandomItemPage>
     return Scaffold(
       body: Column(children: [
         ConstrainedBox(
-          constraints:  BoxConstraints(maxHeight: sizeTransformList,minHeight: sizeTransformList,maxWidth: sizeTransformList,minWidth: sizeTransformList),
+          constraints: BoxConstraints(
+              maxHeight: sizeTransformList,
+              minHeight: sizeTransformList,
+              maxWidth: sizeTransformList,
+              minWidth: sizeTransformList),
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -147,7 +151,9 @@ class _RandomItemPageState extends State<RandomItemPage>
               ),
               CustomPaint(
                   painter: SectorPainter(
-                      color: Colors.black, radius: sizeTransformList/50, angle: 2 * pi)),
+                      color: Colors.black,
+                      radius: sizeTransformList / 50,
+                      angle: 2 * pi)),
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -155,24 +161,31 @@ class _RandomItemPageState extends State<RandomItemPage>
                     angle: pi,
                     child: CustomPaint(
                         painter: SectorPainter(
-                            color: Colors.black, radius: sizeTransformList/33, angle: pi / 2)),
+                            color: Colors.black,
+                            radius: sizeTransformList / 33,
+                            angle: pi / 2)),
                   ),
                   SizedBox(
-                    height: sizeTransformList/10,
+                    height: sizeTransformList / 10,
                   ),
                 ],
               )
             ],
           ),
         ),
-        const SizedBox(height: 5,),
+        const SizedBox(
+          height: 5,
+        ),
         GestureDetector(
-            onPanUpdate: (details) {setState(() {
-              sizeTransformList+=details.delta.dy;
-            });
-        debugPrint('details.globalPosition: ${details}');
-        },
-    child: Container(height: 6,color: Colors.black,)),
+            onPanUpdate: (details) {
+              setState(() {
+                sizeTransformList += details.delta.dy;
+              });
+            },
+            child: Container(
+              height: 12,
+              color: Colors.black,
+            )),
         Expanded(
           child: ListView.builder(
               itemBuilder: (BuildContext context, int index) {
@@ -201,7 +214,9 @@ class _RandomItemPageState extends State<RandomItemPage>
                                     ),
                                 child: const Icon(Icons.add_box_outlined)),
                             CloseButton(
-                              onPressed: names.length==1?  null :() =>_delItem(index),
+                              onPressed: names.length == 1
+                                  ? null
+                                  : () => _delItem(index),
                             ),
                           ],
                         ),
@@ -244,11 +259,28 @@ class _RandomItemPageState extends State<RandomItemPage>
   }
 }
 
-class DialogItem extends StatelessWidget {
+class DialogItem extends StatefulWidget {
   final void Function(String text) onPressed;
-  String text;
+  final String text;
 
-  DialogItem({super.key, required this.onPressed, required this.text});
+  const DialogItem({
+    super.key,
+    required this.onPressed,
+    required this.text,
+  });
+
+  @override
+  State<DialogItem> createState() => _DialogItemState();
+}
+
+class _DialogItemState extends State<DialogItem> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(text: widget.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -262,16 +294,13 @@ class DialogItem extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  controller: TextEditingController(text: text),
-                  onChanged: (value) => text = value,
-                ),
+                TextField(controller: _controller),
                 const SizedBox(
                   height: 8,
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    onPressed(text);
+                    widget.onPressed(_controller.text);
                     Navigator.pop(context);
                   },
                   child: const Text('add'),
